@@ -21,7 +21,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void Update()
     {
-        
+
         //gameObject.GetComponent<Rigidbody2D>().gravity = 0f;
         if(x == 1)
         {

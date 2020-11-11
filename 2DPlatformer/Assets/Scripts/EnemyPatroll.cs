@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyPatroll : MonoBehaviour
 {
+    [SerializeField] float cScale = 1;
+    [SerializeField] EnemyProjectileBehaviour ProjectilePrefab;
+    [SerializeField] Transform LaunchOffset;
     [SerializeField] List<Vector3> points;
     [SerializeField] float speed;
     [SerializeField] float waitTime;
@@ -14,10 +17,15 @@ public class EnemyPatroll : MonoBehaviour
     // Start is called before the first frame update
 
     // When neccesary I just flip the entire game object on the OX axis to go left or right on the map
+    public float getCScale()
+    {
+        return cScale;
+    }
     void Flip()
     {
         Vector3 newScale = transform.localScale;
         newScale.x *= -1;
+        cScale = newScale.x;
         transform.localScale = newScale;
     }
 
@@ -25,15 +33,19 @@ public class EnemyPatroll : MonoBehaviour
     void Wait()
     {
         currentWaitedTime += Time.deltaTime;
+        
         if (currentWaitedTime > waitTime)
         {
+            Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
             hasToWait = false;
+            
         }
     }
 
     // Give the object a destination to go to (usually it should be on same OY axis, just x to differ
     void WalkTo(Vector3 destination)
-    {
+    {   
+        
         Vector3 direction = destination - transform.position;
         if (Mathf.Sign(direction.normalized.x) != Mathf.Sign(transform.localScale.x))
         {
@@ -71,6 +83,7 @@ public class EnemyPatroll : MonoBehaviour
     {
         if (hasToWait)
         {
+            
             Wait();
         }
     }
@@ -92,6 +105,7 @@ public class EnemyPatroll : MonoBehaviour
                 currentWaitedTime = 0;
                 rb2D.velocity = Vector2.zero;
                 destinationPoint = FindNextWaypoint(destinationPoint);
+                
             }
         }
         

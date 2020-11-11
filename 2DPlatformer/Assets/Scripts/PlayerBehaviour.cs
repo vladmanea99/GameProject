@@ -8,7 +8,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float MaxHitpoints = 5;
     public HealthbarBehaviour Healthbar;
     void Start()
-    {
+    { Debug.Log("De ce nu mere?");
         Hitpoints = MaxHitpoints;
         Healthbar.SetHealth(Hitpoints, MaxHitpoints);
     }
