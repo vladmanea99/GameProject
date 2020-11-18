@@ -851,6 +851,7 @@ MonoBehaviour:
   speed: 5
   jumpSpeed: 8
   isTouchingGround: 0
+  cScale: 1
   ProjectilePrefab: {fileID: 8061901754661125873, guid: db5303035680a084ab82b1621de6ebbc, type: 3}
   LaunchOffset: {fileID: 1283831820}
 --- !u!1 &1283831819

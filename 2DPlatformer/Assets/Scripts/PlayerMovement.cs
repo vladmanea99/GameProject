@@ -15,9 +15,7 @@ public class PlayerMovement : MonoBehaviour
   void Start () {
     rigidBody = GetComponent<Rigidbody2D> ();
   }
-  
-  // Update is called once per frame
-  void Update () {
+  private void Movement(){
     movement = Input.GetAxis ("Horizontal");
     Vector3 characterScale = transform.localScale;
     if (movement > 0f) {
@@ -34,11 +32,18 @@ public class PlayerMovement : MonoBehaviour
       rigidBody.velocity = new Vector2 (0,rigidBody.velocity.y);
     }
     transform.localScale = characterScale;
+  }
+  private void FixedUpdate() {
+    Movement();
+  }
+  void Update () {
+
     // 
     
 
     if(Input.GetKeyDown (KeyCode.UpArrow) && isTouchingGround){
       rigidBody.velocity = new Vector2(rigidBody.velocity.x,jumpSpeed);
+      
     }
     if(Input.GetKeyDown (KeyCode.Space)){
       Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
