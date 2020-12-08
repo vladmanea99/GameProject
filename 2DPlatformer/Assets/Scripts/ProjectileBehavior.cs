@@ -15,7 +15,6 @@ public class ProjectileBehavior : MonoBehaviour
         GameObject Player = GameObject.Find("Player");
         PlayerMovement playerScript = Player.GetComponent<PlayerMovement>();
         x = playerScript.cScale;
-        Debug.Log(x);
 
     }
 
@@ -40,7 +39,6 @@ public class ProjectileBehavior : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         var enemy = collision.collider.GetComponent<EnemyBehaviour>();
-        Debug.Log("Intra aici");
         if(enemy)
         {
             enemy.TakeHit(1);
