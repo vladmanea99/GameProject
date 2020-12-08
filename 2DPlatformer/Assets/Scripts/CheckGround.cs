@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// scriptul pentru a verifica daca playerul este pe pamant + animatorul pentru jump
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,28 +10,32 @@ public class CheckGround : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = gameObject.transform.parent.gameObject;
+        Player = gameObject.transform.parent.gameObject; // facem referinta la player
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision) // daca playerul e pe pamant, bool-ul "isTouchingGround" devine true, iar bool-ul "isJumping" din animator devine fals
     {
-        Debug.Log("Ma impusc");
-      
+        Player.GetComponent<PlayerMovement>().isTouchingGround = true;
+        Player.GetComponent<PlayerMovement>().animator.SetBool("isJumping", false);
+        if (collision.gameObject.tag == "Enemy")
+        {
             Player.GetComponent<PlayerMovement>().isTouchingGround = true;
-            
-        
+        }
+
     }
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision) // invers...mi-e prea lene
     {
-        Debug.Log("Ma impusc de 2 ori");
-       
-            Player.GetComponent<PlayerMovement>().isTouchingGround = false;
-            
-        
+        Player.GetComponent<PlayerMovement>().animator.SetBool("isJumping", true);
+        Player.GetComponent<PlayerMovement>().isTouchingGround = false;
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Player.GetComponent<PlayerMovement>().isTouchingGround = true;
+        }
+
     }
 }
