@@ -92,7 +92,7 @@ public class EnemyPatroll : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!hasToWait)
+        if (!hasToWait && !GetComponent<EnemyVisionCollider>().IsPlayerSeen())
         {
             // If it's not close enough to the place it has to go, just make it walk for more time
             if (Vector3.Distance(transform.position, destinationPoint) > 0.1)
