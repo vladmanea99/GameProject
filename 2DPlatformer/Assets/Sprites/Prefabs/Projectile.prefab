@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8061901754661125873}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +84,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 20
+  lifetime: 5
+  x: 0
 --- !u!1 &8061901756311304723
 GameObject:
   m_ObjectHideFlags: 0
