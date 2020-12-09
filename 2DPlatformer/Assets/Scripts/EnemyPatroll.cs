@@ -14,7 +14,7 @@ public class EnemyPatroll : MonoBehaviour
     // Start is called before the first frame update
 
     // When neccesary I just flip the entire game object on the OX axis to go left or right on the map
-    void Flip()
+    public void Flip()
     {
         Vector3 newScale = transform.localScale;
         newScale.x *= -1;
@@ -78,7 +78,7 @@ public class EnemyPatroll : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!hasToWait)
+        if (!hasToWait && !GetComponent<EnemyVisionCollider>().IsPlayerSeen())
         {
             // If it's not close enough to the place it has to go, just make it walk for more time
             if (Vector3.Distance(transform.position, destinationPoint) > 0.1)
