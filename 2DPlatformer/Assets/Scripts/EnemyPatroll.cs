@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class EnemyPatroll : MonoBehaviour
 {
+    public Animator animator;
     [SerializeField] float cScale = 1;
     [SerializeField] EnemyProjectileBehaviour ProjectilePrefab;
     [SerializeField] Transform LaunchOffset;
-    [SerializeField] List<Vector3> points;
-    [SerializeField] float speed;
-    [SerializeField] float waitTime;
-    bool hasToWait = false;
-    float currentWaitedTime;
+    [SerializeField] public List<Vector3> points;
+    [SerializeField] public float speed;
+    [SerializeField] public float waitTime;
+    public bool hasToWait = false;
+    public float currentWaitedTime;
     Rigidbody2D rb2D;
     Vector3 destinationPoint;
     // Start is called before the first frame update
@@ -33,19 +34,19 @@ public class EnemyPatroll : MonoBehaviour
     void Wait()
     {
         currentWaitedTime += Time.deltaTime;
-        
+
         if (currentWaitedTime > waitTime)
         {
             Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
             hasToWait = false;
-            
+
         }
     }
 
     // Give the object a destination to go to (usually it should be on same OY axis, just x to differ
     void WalkTo(Vector3 destination)
-    {   
-        
+    {
+
         Vector3 direction = destination - transform.position;
         if (Mathf.Sign(direction.normalized.x) != Mathf.Sign(transform.localScale.x))
         {
@@ -58,7 +59,6 @@ public class EnemyPatroll : MonoBehaviour
     Vector2 FindNextWaypoint(Vector3 currentDestination)
     {
         int indice = points.IndexOf(currentDestination);
-
         if (indice == points.Count - 1)
         {
             return points[0];
@@ -81,9 +81,10 @@ public class EnemyPatroll : MonoBehaviour
 
     private void Update()
     {
+        animator.SetFloat("Speed", Mathf.Abs(rb2D.velocity.x));
         if (hasToWait)
         {
-            
+
             Wait();
         }
     }
@@ -105,7 +106,7 @@ public class EnemyPatroll : MonoBehaviour
                 currentWaitedTime = 0;
                 rb2D.velocity = Vector2.zero;
                 destinationPoint = FindNextWaypoint(destinationPoint);
-                
+
             }
         }
         
