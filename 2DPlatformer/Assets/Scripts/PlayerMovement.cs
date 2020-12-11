@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+  public static bool IsInputEnabled = true;
+  public Transform Player;
   public Animator animator;
+  public float crouchValue;
+  private Vector3 crouchScale;
   public float speed = 5f;
   public float jumpSpeed = 8f;
   private float movement = 0f;
@@ -15,7 +19,9 @@ public class PlayerMovement : MonoBehaviour
   public Transform LaunchOffset;
   void Start () {
     rigidBody = GetComponent<Rigidbody2D> ();
-  }
+    Player = GameObject.FindWithTag("Player").transform;
+    crouchScale = new Vector3(0f, crouchValue, 0f);
+    }
   private void Movement(){
     movement = Input.GetAxis ("Horizontal");
     Vector3 characterScale = transform.localScale;
@@ -43,29 +49,36 @@ public class PlayerMovement : MonoBehaviour
     transform.localScale = characterScale;
   }
   private void FixedUpdate() {
-    Movement();
+
+   if (IsInputEnabled) { Movement(); }    
   }
   void Update () {
 
     animator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x)); //schimba valoarea "Speed" din animatorul playerului cu velocity-ul sau (ABS pentru ca poate fi negativ)
 
-    if(Input.GetKeyDown (KeyCode.UpArrow) && isTouchingGround){ // daca sare(si verifica daca e pe ground) , uparrow.
-      rigidBody.velocity = new Vector2(rigidBody.velocity.x,jumpSpeed);
-      
+    if(Input.GetKeyDown (KeyCode.UpArrow) && isTouchingGround && IsInputEnabled)
+    {
+       rigidBody.velocity = new Vector2(rigidBody.velocity.x,jumpSpeed);
     }
-    if(Input.GetKeyDown (KeyCode.Space)){ // pentru tras, space, restul in ProjectileBehaviour 
+    if(Input.GetKeyDown (KeyCode.Space) && IsInputEnabled)  // pentru tras, space, restul in ProjectileBehaviour
+        {  
       Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
     }
 
-    //pentru crouch, deocamdata downarrow si doar face animatia schimband valoarea "isCrouching" din animator cu true sau false
-    if (Input.GetKeyDown (KeyCode.DownArrow))
+    //pentru crouch
+    if (Input.GetKeyDown (KeyCode.DownArrow) && isTouchingGround)
     {
-       animator.SetBool("isCrouching", true); 
+        Player.localScale -= crouchScale;
+        animator.SetBool("isCrouching", true);
+        IsInputEnabled = false;
+        rigidBody.velocity = new Vector2(0f, 0f);    
     }
 
-    if (Input.GetKeyUp (KeyCode.DownArrow))
+    if (Input.GetKeyUp (KeyCode.DownArrow) && IsInputEnabled == false)
     {
-       animator.SetBool("isCrouching", false);
+        Player.localScale += crouchScale;
+        animator.SetBool("isCrouching", false);
+        IsInputEnabled = true;
     }
 
     }

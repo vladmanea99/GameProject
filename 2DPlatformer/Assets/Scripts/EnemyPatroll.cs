@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class EnemyPatroll : MonoBehaviour
 {
-    [SerializeField] List<Vector3> points;
-    [SerializeField] float speed;
-    [SerializeField] float waitTime;
-    bool hasToWait = false;
-    float currentWaitedTime;
+    public Animator animator;
+    [SerializeField] public List<Vector3> points;
+    [SerializeField] public float speed;
+    [SerializeField] public float waitTime;
+    public bool hasToWait = false;
+    public float currentWaitedTime;
     Rigidbody2D rb2D;
     Vector3 destinationPoint;
     // Start is called before the first frame update
@@ -46,7 +47,6 @@ public class EnemyPatroll : MonoBehaviour
     Vector2 FindNextWaypoint(Vector3 currentDestination)
     {
         int indice = points.IndexOf(currentDestination);
-
         if (indice == points.Count - 1)
         {
             return points[0];
@@ -69,6 +69,7 @@ public class EnemyPatroll : MonoBehaviour
 
     private void Update()
     {
+        animator.SetFloat("Speed", Mathf.Abs(rb2D.velocity.x));
         if (hasToWait)
         {
             Wait();

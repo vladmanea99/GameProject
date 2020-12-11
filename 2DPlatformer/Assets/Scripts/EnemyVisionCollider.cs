@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyVisionCollider : MonoBehaviour
 {
     // Number of rays that should search to see if the enemy has clear sight of the player
-    [SerializeField] uint numberOfRays;
-
+    GameObject Enemy;
+    [SerializeField] public uint numberOfRays;
     private CircleCollider2D circleCollider2D;
     private Rigidbody2D rb2D;
     private RaycastHit2D raycastHit2D;
@@ -16,6 +16,7 @@ public class EnemyVisionCollider : MonoBehaviour
     {
         // Circle collider is used for the vision of the enemy
         circleCollider2D = GetComponent<CircleCollider2D>();
+        Enemy = GameObject.FindWithTag("Enemy");
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -36,6 +37,7 @@ public class EnemyVisionCollider : MonoBehaviour
                 if (raycastHit2D.collider && raycastHit2D.collider.tag == "Player")
                 {
                     Debug.Log("I found the player");
+                    Enemy.GetComponent<EnemyPatroll>().animator.SetBool("Detected", true);
                     break;
                 }
             }
@@ -48,12 +50,13 @@ public class EnemyVisionCollider : MonoBehaviour
         if (collision.name == "Player")
         {
             Debug.Log("Player is out of range");
+            Enemy.GetComponent<EnemyPatroll>().animator.SetBool("Detected", false);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

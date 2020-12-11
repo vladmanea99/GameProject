@@ -7,6 +7,7 @@ using UnityEngine;
 public class CheckGround : MonoBehaviour
 {
     GameObject Player;
+    int numberOfGrounds = 0; 
     // Start is called before the first frame update
     void Start()
     {
@@ -20,22 +21,19 @@ public class CheckGround : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision) // daca playerul e pe pamant, bool-ul "isTouchingGround" devine true, iar bool-ul "isJumping" din animator devine fals
     {
+        numberOfGrounds += 1;
+        Debug.Log("Intrat");
         Player.GetComponent<PlayerMovement>().isTouchingGround = true;
         Player.GetComponent<PlayerMovement>().animator.SetBool("isJumping", false);
-        if (collision.gameObject.tag == "Enemy")
-        {
-            Player.GetComponent<PlayerMovement>().isTouchingGround = true;
-        }
-
     }
     private void OnCollisionExit2D(Collision2D collision) // invers...mi-e prea lene
     {
-        Player.GetComponent<PlayerMovement>().animator.SetBool("isJumping", true);
-        Player.GetComponent<PlayerMovement>().isTouchingGround = false;
-        if (collision.gameObject.tag == "Enemy")
+        numberOfGrounds += -1;
+        Debug.Log("Am iesit");
+        if (numberOfGrounds == 0)
         {
-            Player.GetComponent<PlayerMovement>().isTouchingGround = true;
+            Player.GetComponent<PlayerMovement>().animator.SetBool("isJumping", true);
+            Player.GetComponent<PlayerMovement>().isTouchingGround = false;
         }
-
     }
 }
