@@ -22,7 +22,7 @@ public class EnemyShoot : MonoBehaviour
     {
         if (GetComponent<EnemyVisionCollider>().IsPlayerSeen())
         {
-            Shoot();
+            //Shoot();
         }
     }
 }

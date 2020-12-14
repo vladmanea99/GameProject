@@ -94,6 +94,7 @@ public class EnemyVisionCollider : MonoBehaviour
     {
         if (collision.name == "Player")
         {
+            FacePlayer(collision);
             currentSearchTime = 0;
             hasPlayerExitedVision = true;
         }
