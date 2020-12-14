@@ -13,7 +13,7 @@ public class EnemyProjectileBehaviour : MonoBehaviour
         GameObject Enemy = GameObject.Find("Enemy");
         EnemyPatroll enemyScript = Enemy.GetComponent<EnemyPatroll>();
         x = enemyScript.getCScale();
-        Vector3 newScale = transform.localScale;
+        //Vector3 newScale = transform.localScale;
         Debug.Log(x);
 
     }
@@ -35,7 +35,7 @@ public class EnemyProjectileBehaviour : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         var player = collision.collider.GetComponent<PlayerBehaviour>();
-        Debug.Log("Intra aici");
+        //Debug.Log("Intra aici");
         if(player)
         {
             player.TakeHit(1);

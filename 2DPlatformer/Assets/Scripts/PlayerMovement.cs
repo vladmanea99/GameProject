@@ -27,11 +27,12 @@ public class PlayerMovement : MonoBehaviour
       rigidBody.velocity = new Vector2 (movement * speed, rigidBody.velocity.y);
       characterScale.x = 1;
       cScale = 1;
-  void Start () {
-    rigidBody = GetComponent<Rigidbody2D> ();
+    }
+    transform.localScale = characterScale;
   }
 
-  private void FixedUpdate() {
+
+  void FixedUpdate() {
     Movement();
   }
   void Update () {
@@ -43,11 +44,10 @@ public class PlayerMovement : MonoBehaviour
     if(Input.GetKeyDown (KeyCode.Space)){
       Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
     }
-    if(Input.GetKeyDown (KeyCode.Space)){
-      Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
-    }
+
 
   }
 
     
 }
+
