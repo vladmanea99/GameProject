@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyPatroll : MonoBehaviour
 {
+    public int cScale = 1;
+    public EnemyProjectileBehaviour ProjectilePrefab;
+    public Transform LaunchOffset;
     [SerializeField] List<Vector3> points;
     [SerializeField] float speed;
     [SerializeField] float waitTime;
@@ -18,6 +21,7 @@ public class EnemyPatroll : MonoBehaviour
     {
         Vector3 newScale = transform.localScale;
         newScale.x *= -1;
+        cScale = cScale*(-1);
         transform.localScale = newScale;
     }
 
@@ -25,15 +29,19 @@ public class EnemyPatroll : MonoBehaviour
     void Wait()
     {
         currentWaitedTime += Time.deltaTime;
+        
         if (currentWaitedTime > waitTime)
         {
+            Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
             hasToWait = false;
+            
         }
     }
 
     // Give the object a destination to go to (usually it should be on same OY axis, just x to differ
     void WalkTo(Vector3 destination)
-    {
+    {   
+        
         Vector3 direction = destination - transform.position;
         if (Mathf.Sign(direction.normalized.x) != Mathf.Sign(transform.localScale.x))
         {
@@ -71,6 +79,7 @@ public class EnemyPatroll : MonoBehaviour
     {
         if (hasToWait)
         {
+            
             Wait();
         }
     }
@@ -92,6 +101,7 @@ public class EnemyPatroll : MonoBehaviour
                 currentWaitedTime = 0;
                 rb2D.velocity = Vector2.zero;
                 destinationPoint = FindNextWaypoint(destinationPoint);
+                
             }
         }
         
