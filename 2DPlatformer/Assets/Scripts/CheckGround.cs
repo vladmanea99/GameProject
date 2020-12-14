@@ -22,14 +22,12 @@ public class CheckGround : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) // daca playerul e pe pamant, bool-ul "isTouchingGround" devine true, iar bool-ul "isJumping" din animator devine fals
     {
         numberOfGrounds += 1;
-        Debug.Log("Intrat");
         Player.GetComponent<PlayerMovement>().isTouchingGround = true;
         Player.GetComponent<PlayerMovement>().animator.SetBool("isJumping", false);
     }
     private void OnCollisionExit2D(Collision2D collision) // invers...mi-e prea lene
     {
         numberOfGrounds += -1;
-        Debug.Log("Am iesit");
         if (numberOfGrounds == 0)
         {
             Player.GetComponent<PlayerMovement>().animator.SetBool("isJumping", true);
