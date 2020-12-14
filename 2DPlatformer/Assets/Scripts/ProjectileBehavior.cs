@@ -38,18 +38,14 @@ public class ProjectileBehavior : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("Se ciocneste de");
-        //Debug.Log(collision.gameObject.name);
-
         var enemy = collision.collider.GetComponent<EnemyBehaviour>();
         Debug.Log("Intra aici");
         if(enemy)
         {
             enemy.TakeHit(1);
-
+            Destroy(gameObject);
         }
        Destroy(gameObject);
-
     }
 
 
