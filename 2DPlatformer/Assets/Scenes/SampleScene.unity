@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   animator: {fileID: 1081985852}
-  crouchValue: 1
+  crouchValue: 0.095
   speed: 5
   jumpSpeed: 8
   isTouchingGround: 0

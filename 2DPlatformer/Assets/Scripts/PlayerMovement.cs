@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
   public Transform Player;
   public Animator animator;
   public float crouchValue;
-  private Vector3 crouchScale;
+  private Vector2 crouchScale;
   public float speed = 5f;
   public float jumpSpeed = 8f;
   private float movement = 0f;
@@ -68,7 +68,9 @@ public class PlayerMovement : MonoBehaviour
     //pentru crouch
     if (Input.GetKeyDown (KeyCode.DownArrow) && isTouchingGround)
     {
-        Player.localScale -= crouchScale;
+ 
+        Player.GetComponent<BoxCollider2D>().size -= crouchScale;
+        Player.GetComponent<BoxCollider2D>().offset -= crouchScale / 2;
         animator.SetBool("isCrouching", true);
         IsInputEnabled = false;
         rigidBody.velocity = new Vector2(0f, 0f);    
@@ -76,7 +78,8 @@ public class PlayerMovement : MonoBehaviour
 
     if (Input.GetKeyUp (KeyCode.DownArrow) && IsInputEnabled == false)
     {
-        Player.localScale += crouchScale;
+        Player.GetComponent<BoxCollider2D>().size += crouchScale;
+        Player.GetComponent<BoxCollider2D>().offset += crouchScale / 2;
         animator.SetBool("isCrouching", false);
         IsInputEnabled = true;
     }
