@@ -6,8 +6,6 @@ public class EnemyPatroll : MonoBehaviour
 {
     public Animator animator;
     [SerializeField] float cScale = 1;
-    [SerializeField] EnemyProjectileBehaviour ProjectilePrefab;
-    [SerializeField] Transform LaunchOffset;
     [SerializeField] public List<Vector3> points;
     [SerializeField] public float speed;
     [SerializeField] public float waitTime;
@@ -22,7 +20,7 @@ public class EnemyPatroll : MonoBehaviour
     {
         return cScale;
     }
-    void Flip()
+    public void Flip()
     {
         Vector3 newScale = transform.localScale;
         newScale.x *= -1;
@@ -37,9 +35,7 @@ public class EnemyPatroll : MonoBehaviour
 
         if (currentWaitedTime > waitTime)
         {
-            Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
             hasToWait = false;
-
         }
     }
 

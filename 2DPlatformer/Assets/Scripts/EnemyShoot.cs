@@ -5,11 +5,28 @@ using UnityEngine;
 public class EnemyShoot : MonoBehaviour
 {
     // Start is called before the first frame update
-    public ProjectileBehavior ProjectilePrefab;
-    public Transform LaunchOffset;
+    [SerializeField] EnemyProjectileBehaviour ProjectilePrefab;
+    [SerializeField] Transform LaunchOffset;
+    [SerializeField] float cooldownTime;
+    private float currentCooldownTime;
+    private bool isOnCooldown;
     void Shoot()
     {
         Instantiate(ProjectilePrefab, LaunchOffset.position, transform.rotation);
+        currentCooldownTime = 0;
+    }
+
+    void CheckForCooldown() 
+    {
+        if (currentCooldownTime < cooldownTime)
+        {
+            currentCooldownTime += Time.deltaTime;
+        }
+        else
+        {
+            currentCooldownTime = 0;
+            isOnCooldown = false;
+        }
     }
 
     void Start()
@@ -20,9 +37,13 @@ public class EnemyShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<EnemyVisionCollider>().IsPlayerSeen())
+
+        CheckForCooldown();
+
+        if (GetComponent<EnemyVisionCollider>().IsPlayerSeen() && !isOnCooldown)
         {
-            //Shoot();
+            isOnCooldown = true;
+            Shoot();
         }
     }
 }

@@ -6,13 +6,16 @@ public class EnemyVisionCollider : MonoBehaviour
 {
     // Number of rays that should search to see if the enemy has clear sight of the player
     GameObject Enemy;
-    [SerializeField] public uint numberOfRays;
+    [SerializeField] uint numberOfRays;
+    [SerializeField] float searchTime;
+    [SerializeField] float cScale = 3;
+    [SerializeField] GameObject player;
     private CircleCollider2D circleCollider2D;
     private Rigidbody2D rb2D;
     private RaycastHit2D raycastHit2D;
     private bool isPlayerSeen;
     private bool hasPlayerExitedVision;
-    [SerializeField] float searchTime;
+    
     private float currentSearchTime;
 
     public bool IsPlayerSeen()
@@ -35,13 +38,15 @@ public class EnemyVisionCollider : MonoBehaviour
         // Need to find the number of the layer for Enemy and just say, search for every layer, other than it, thus the ~
         int layerMask = ~(1 << LayerMask.NameToLayer("Enemy"));
         Vector3 direction;
-        Vector3 startingRayPosition = transform.position + new Vector3(0, transform.localScale.y, 0);
+        Vector3 startingRayPosition = transform.position;
         // For each ray we see if it hits the player directly or not
         for (int i = 0; i < numberOfRays; i++)
         {
+            
             // The direction starts from the middle of the box of the enemy and towards different parts of the player collider
-            direction = (target.transform.position + (i + 1) * target.transform.localScale / numberOfRays) - startingRayPosition;
+            direction = (target.transform.position + (i + 1) * target.transform.localScale / (numberOfRays * cScale)) - startingRayPosition;
             raycastHit2D = Physics2D.Raycast(startingRayPosition, direction.normalized, Mathf.Infinity, layerMask);
+            // Debug.DrawRay(startingRayPosition, direction, Color.red, 1f);
             if (raycastHit2D.collider && raycastHit2D.collider.tag == "Player")
             {
                 isPlayerSeen = true;
@@ -72,23 +77,26 @@ public class EnemyVisionCollider : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.name == "Player")
         {
             FindTarget(collision);
             hasPlayerExitedVision = false;
             currentSearchTime = 0;
-            FacePlayer(collision);
         }
         
     }
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.name == "Player" && !isPlayerSeen)
+        if (collision.name == "Player")
         {
-            FindTarget(collision);
-            hasPlayerExitedVision = false;
-            currentSearchTime = 0;
+            if (!isPlayerSeen)
+            {
+                FindTarget(collision);
+                hasPlayerExitedVision = false;
+                currentSearchTime = 0;
+            }
         }
     }
 
@@ -96,7 +104,6 @@ public class EnemyVisionCollider : MonoBehaviour
     {
         if (collision.name == "Player")
         {
-            FacePlayer(collision);
             currentSearchTime = 0;
             hasPlayerExitedVision = true;
             Enemy.GetComponent<EnemyPatroll>().animator.SetBool("Detected", false);
@@ -106,7 +113,11 @@ public class EnemyVisionCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-if (isPlayerSeen && hasPlayerExitedVision && currentSearchTime < searchTime)
+        if (isPlayerSeen)
+        {
+            FacePlayer(player.GetComponent<BoxCollider2D>());
+        }
+        if (isPlayerSeen && hasPlayerExitedVision && currentSearchTime < searchTime)
         {
             SearchTarget();
         }

@@ -14,7 +14,6 @@ public class EnemyProjectileBehaviour : MonoBehaviour
         EnemyPatroll enemyScript = Enemy.GetComponent<EnemyPatroll>();
         x = enemyScript.getCScale();
         //Vector3 newScale = transform.localScale;
-        Debug.Log(x);
 
     }
 
@@ -39,9 +38,16 @@ public class EnemyProjectileBehaviour : MonoBehaviour
         if(player)
         {
             player.TakeHit(1);
+            Destroy(gameObject);
         }
-        //Destroy(gameObject);
-        Destroy(gameObject);
+        else if (collision.collider.tag == "Bullet")
+        {
+            return;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
     }
 }
