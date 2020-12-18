@@ -23,6 +23,11 @@ public class EnemyVisionCollider : MonoBehaviour
         return isPlayerSeen;
     }
 
+    public bool HasPlayerExitedVision()
+    {
+        return hasPlayerExitedVision;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

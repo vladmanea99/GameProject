@@ -40,7 +40,7 @@ public class EnemyShoot : MonoBehaviour
 
         CheckForCooldown();
 
-        if (GetComponent<EnemyVisionCollider>().IsPlayerSeen() && !isOnCooldown)
+        if (GetComponent<EnemyVisionCollider>().IsPlayerSeen() && !GetComponent<EnemyVisionCollider>().HasPlayerExitedVision() && !isOnCooldown)
         {
             isOnCooldown = true;
             Shoot();
