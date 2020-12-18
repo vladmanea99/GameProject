@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
   public int cScale = 1; //valoare care tine minte in ce directie se uita playerul
   public ProjectileBehavior ProjectilePrefab;
   public Transform LaunchOffset;
+  public int LastSwap = 1;
+  [SerializeField] float LevelDistance = 39.08f;
   void Start () {
     rigidBody = GetComponent<Rigidbody2D> ();
     Player = GameObject.FindWithTag("Player").transform;
@@ -49,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
     transform.localScale = characterScale;
   }
 
-
   void FixedUpdate() {
 
    if (IsInputEnabled) { Movement(); }
@@ -66,9 +67,32 @@ public class PlayerMovement : MonoBehaviour
         {
       Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
     }
-
-    //pentru crouch
-    if (Input.GetKeyDown (KeyCode.DownArrow) && isTouchingGround)
+    if (Input.GetKeyDown("1")){
+        transform.position = new Vector3(transform.position.x + LevelDistance*(1-LastSwap), transform.position.y, transform.position.z);
+            LastSwap = 1;
+    }
+    if (Input.GetKeyDown("2"))
+    {
+        transform.position = new Vector3(transform.position.x + LevelDistance*(2-LastSwap), transform.position.y, transform.position.z);
+            LastSwap = 2;
+    }
+    if (Input.GetKeyDown("3"))
+    {
+        transform.position = new Vector3(transform.position.x + LevelDistance*(3-LastSwap), transform.position.y, transform.position.z);
+            LastSwap = 3;
+    }
+    if (Input.GetKeyDown("4"))
+    {
+        transform.position = new Vector3(transform.position.x + LevelDistance*(4-LastSwap), transform.position.y, transform.position.z);
+            LastSwap = 4;
+    }
+    if (Input.GetKeyDown("5"))
+    {
+        transform.position = new Vector3(transform.position.x + LevelDistance*(5-LastSwap), transform.position.y, transform.position.z);
+            LastSwap = 5;
+    }
+        //pentru crouch
+        if (Input.GetKeyDown (KeyCode.DownArrow) && isTouchingGround)
     {
  
         Player.GetComponent<BoxCollider2D>().size -= crouchScale;
@@ -85,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isCrouching", false);
         IsInputEnabled = true;
     }
-
+    
     }
 
 
