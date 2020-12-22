@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         LastSwap = 5;
     }
         //pentru crouch
-    if (Input.GetKeyDown (KeyCode.DownArrow) && isTouchingGround)
+    if (Input.GetKeyDown (KeyCode.LeftControl) && isTouchingGround)
     {
         Player.GetComponent<BoxCollider2D>().size -= crouchScale;
         Player.GetComponent<BoxCollider2D>().offset -= crouchScale / 2;
@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         rigidBody.velocity = new Vector2(0f, 0f);
     }
 
-    if (Input.GetKeyUp (KeyCode.DownArrow) && IsInputEnabled == false)
+    if (Input.GetKeyUp (KeyCode.LeftControl) && IsInputEnabled == false)
     {
         Player.GetComponent<BoxCollider2D>().size += crouchScale;
         Player.GetComponent<BoxCollider2D>().offset += crouchScale / 2;
