@@ -7,6 +7,7 @@ public class CameraPostProcessingColor : MonoBehaviour
 {
     PostProcessVolume postProcessVolume;
     public PostProcessProfile[] profiles;
+    [SerializeField] Transform target;
     int poz = 0;
     public float LevelDistance = 39.08f; 
     // Start is called before the first frame update
@@ -19,50 +20,50 @@ public class CameraPostProcessingColor : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void moveToDimension(string dimensionNumber, Vector3 positionForOffset)
     {
-
-        if (Input.GetKeyDown("1"))
+        Vector3 offset = positionForOffset - transform.position;
+        Debug.Log(offset);
+        if (dimensionNumber == "1")
         {
             poz = 0;
             postProcessVolume.profile = profiles[poz % profiles.Length];
-            Vector3 cameraFollowPosition = new Vector3(0, 0);
+            Vector3 cameraFollowPosition = target.position + offset;
             cameraFollowPosition.z = transform.position.z;
             transform.position = cameraFollowPosition;
         }
-        if (Input.GetKeyDown("2"))
+        if (dimensionNumber == "2")
         {
             poz = 1;
             postProcessVolume.profile = profiles[poz % profiles.Length];
-            Vector3 cameraFollowPosition = new Vector3(LevelDistance, 0);
+            Vector3 cameraFollowPosition = target.position + offset;
             cameraFollowPosition.z = transform.position.z;
             transform.position = cameraFollowPosition;
         }
-        if (Input.GetKeyDown("3"))
+        if (dimensionNumber == "3")
         {
             poz = 2;
             postProcessVolume.profile = profiles[poz % profiles.Length];
-            Vector3 cameraFollowPosition = new Vector3(2 * LevelDistance, 0);
+            Vector3 cameraFollowPosition = target.position + offset;
             cameraFollowPosition.z = transform.position.z;
             transform.position = cameraFollowPosition;
         }
-        if (Input.GetKeyDown("4"))
+        if (dimensionNumber == "4")
         {
             poz = 3;
             postProcessVolume.profile = profiles[poz % profiles.Length];
-            Vector3 cameraFollowPosition = new Vector3(3 * LevelDistance, 0);
+            Vector3 cameraFollowPosition = target.position + offset;
             cameraFollowPosition.z = transform.position.z;
             transform.position = cameraFollowPosition;
         }
-        if (Input.GetKeyDown("5"))
+        if (dimensionNumber == "5")
         {
             poz = 4;
             postProcessVolume.profile = profiles[poz % profiles.Length];
-            Vector3 cameraFollowPosition = new Vector3(4 * LevelDistance, 0);
+            Vector3 cameraFollowPosition = target.position + offset;
             cameraFollowPosition.z = transform.position.z;
             transform.position = cameraFollowPosition;
         }
-        
     }
+
 }

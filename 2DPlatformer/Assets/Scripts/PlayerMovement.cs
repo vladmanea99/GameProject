@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
   public static bool IsInputEnabled = true;
+    [SerializeField] GameObject camera;
   public Transform Player;
   public Animator animator;
   public float crouchValue;
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
   public ProjectileBehavior ProjectilePrefab;
   public Transform LaunchOffset;
   public int LastSwap = 1;
+    private Vector3 lastPosition;
   [SerializeField] float LevelDistance = 39.08f;
   void Start () {
     rigidBody = GetComponent<Rigidbody2D> ();
@@ -56,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
    if (IsInputEnabled) { Movement(); }
   }
   void Update () {
-
+    lastPosition = transform.position;
     animator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x)); //schimba valoarea "Speed" din animatorul playerului cu velocity-ul sau (ABS pentru ca poate fi negativ)
 
     if(Input.GetKeyDown (KeyCode.UpArrow) && isTouchingGround && IsInputEnabled)
@@ -69,32 +71,36 @@ public class PlayerMovement : MonoBehaviour
     }
     if (Input.GetKeyDown("1")){
         transform.position = new Vector3(transform.position.x + LevelDistance*(1-LastSwap), transform.position.y, transform.position.z);
+        camera.GetComponent<CameraPostProcessingColor>().moveToDimension("1", lastPosition);
             LastSwap = 1;
     }
     if (Input.GetKeyDown("2"))
     {
         transform.position = new Vector3(transform.position.x + LevelDistance*(2-LastSwap), transform.position.y, transform.position.z);
-            LastSwap = 2;
+        camera.GetComponent<CameraPostProcessingColor>().moveToDimension("2", lastPosition);
+        LastSwap = 2;
     }
     if (Input.GetKeyDown("3"))
     {
         transform.position = new Vector3(transform.position.x + LevelDistance*(3-LastSwap), transform.position.y, transform.position.z);
-            LastSwap = 3;
+        camera.GetComponent<CameraPostProcessingColor>().moveToDimension("3", lastPosition);
+        LastSwap = 3;
     }
     if (Input.GetKeyDown("4"))
     {
         transform.position = new Vector3(transform.position.x + LevelDistance*(4-LastSwap), transform.position.y, transform.position.z);
-            LastSwap = 4;
+        camera.GetComponent<CameraPostProcessingColor>().moveToDimension("4", lastPosition);
+        LastSwap = 4;
     }
     if (Input.GetKeyDown("5"))
     {
         transform.position = new Vector3(transform.position.x + LevelDistance*(5-LastSwap), transform.position.y, transform.position.z);
-            LastSwap = 5;
+        camera.GetComponent<CameraPostProcessingColor>().moveToDimension("5", lastPosition);
+        LastSwap = 5;
     }
         //pentru crouch
-        if (Input.GetKeyDown (KeyCode.DownArrow) && isTouchingGround)
+    if (Input.GetKeyDown (KeyCode.DownArrow) && isTouchingGround)
     {
- 
         Player.GetComponent<BoxCollider2D>().size -= crouchScale;
         Player.GetComponent<BoxCollider2D>().offset -= crouchScale / 2;
         animator.SetBool("isCrouching", true);

@@ -1828,6 +1828,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 81e954a92146e5044988df8cdcbe2c63, type: 2}
   - {fileID: 11400000, guid: 402b83fc2e3cd244f9dd902566766e7e, type: 2}
   - {fileID: 11400000, guid: 554f7130b8157d742a223ebb719edf25, type: 2}
+  target: {fileID: 1081985850}
   LevelDistance: 39.08
 --- !u!114 &519420035
 MonoBehaviour:
@@ -3178,6 +3179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3d34257435f974e8a40f01848cdd87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 519420028}
   Player: {fileID: 1081985850}
   animator: {fileID: 1081985852}
   crouchValue: 0.0095
