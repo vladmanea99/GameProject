@@ -64,6 +64,7 @@ public class CameraPostProcessingColor : MonoBehaviour
             cameraFollowPosition.z = transform.position.z;
             transform.position = cameraFollowPosition;
         }
+
     }
 
 }
