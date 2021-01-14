@@ -112,7 +112,6 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 3777907757343536859}
-  - {fileID: 3777907757381311698}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 2428316510381912297, guid: c76ee9f96649e7b4a85ba03b35af46f0, type: 3}
-  LaunchOffset: {fileID: 3777907757381311698}
+  LaunchOffset: {fileID: 0}
   cooldownTime: 1
 --- !u!95 &3777907756355366941
 Animator:
@@ -521,36 +520,6 @@ MonoBehaviour:
   Low: {r: 1, g: 0, b: 0, a: 0.39215687}
   High: {r: 0, g: 1, b: 0, a: 0.39215687}
   Offset: {x: 0, y: 0.5, z: 0}
---- !u!1 &3777907757381311699
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3777907757381311698}
-  m_Layer: 9
-  m_Name: LaunchOffSet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3777907757381311698
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3777907757381311699}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0.08, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3777907756355366916}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3777907757601924830
 GameObject:
   m_ObjectHideFlags: 0

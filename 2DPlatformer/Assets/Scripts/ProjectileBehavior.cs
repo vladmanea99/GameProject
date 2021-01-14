@@ -4,44 +4,37 @@ using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
 {
-
     public float Speed = 20f;
     // Update is called once per frame
     //public float delay = 2.0; //Delay of 5 seconds.
     public float lifetime = 5.0f;
     public int x;
-    private void Start() {
+    private void Start() 
+    {
         Destroy (gameObject, lifetime);
         GameObject Player = GameObject.Find("Player");
         PlayerMovement playerScript = Player.GetComponent<PlayerMovement>();
         x = playerScript.cScale;
-
     }
 
     private void Update()
     {
-
         //gameObject.GetComponent<Rigidbody2D>().gravity = 0f;
-        if(x == 1)
-        {
-            transform.position += -transform.right * Time.deltaTime * Speed;
-        }
-        if(x == -1)
-        {
-            transform.position += transform.right * Time.deltaTime * Speed;
-        }
-        
+
+        transform.position += transform.right * Time.deltaTime * Speed;
+
         //
-        
-       
+
+
+
     }
-    
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         var enemy = collision.collider.GetComponent<EnemyBehaviour>();
-        Debug.Log("Intra aici");
         if(enemy)
         {
+
             enemy.TakeHit(1);
             Destroy(gameObject);
         }

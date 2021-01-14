@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
   public ProjectileBehavior ProjectilePrefab;
   public Transform LaunchOffset;
   public int LastSwap = 1;
-    private Vector3 lastPosition;
+  private Vector3 lastPosition;
   [SerializeField] float LevelDistance = 39.08f;
   void Start () {
     rigidBody = GetComponent<Rigidbody2D> ();
@@ -66,8 +66,15 @@ public class PlayerMovement : MonoBehaviour
        rigidBody.velocity = new Vector2(rigidBody.velocity.x,jumpSpeed);
     }
     if(Input.GetKeyDown (KeyCode.Space) && IsInputEnabled)  // pentru tras, space, restul in ProjectileBehaviour
-        {
-      Instantiate(ProjectilePrefab,LaunchOffset.position, transform.rotation);
+    {
+      if (cScale == 1)
+      {
+       Instantiate(ProjectilePrefab, LaunchOffset.position, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+      }    
+      else
+      {
+       Instantiate(ProjectilePrefab, LaunchOffset.position, transform.rotation);
+      }
     }
     if (Input.GetKeyDown("1")){
         transform.position = new Vector3(transform.position.x + LevelDistance*(1-LastSwap), transform.position.y, transform.position.z);

@@ -12,25 +12,25 @@ public class EnemyProjectileBehaviour : MonoBehaviour
         Destroy (gameObject, lifetime);
         GameObject Enemy = GameObject.Find("Enemy");
         EnemyPatroll enemyScript = Enemy.GetComponent<EnemyPatroll>();
-        x = enemyScript.getCScale();
         //Vector3 newScale = transform.localScale;
-
+        x = enemyScript.getCScale();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(x > 0)
+        if (x > 0)
         {
-  
+
             transform.position += transform.right * Time.deltaTime * Speed;
         }
-        if(x < 0)
+        if (x < 0)
         {
 
             transform.position += -transform.right * Time.deltaTime * Speed;
         }
     }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         var player = collision.collider.GetComponent<PlayerBehaviour>();
