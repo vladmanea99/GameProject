@@ -88,8 +88,9 @@ public class EnemyPatroll : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!hasToWait && !GetComponent<EnemyVisionCollider>().IsPlayerSeen())
+        if (!hasToWait)
         {
+
             // If it's not close enough to the place it has to go, just make it walk for more time
             if (Vector3.Distance(transform.position, destinationPoint) > 0.1)
             {
@@ -104,6 +105,12 @@ public class EnemyPatroll : MonoBehaviour
                 destinationPoint = FindNextWaypoint(destinationPoint);
 
             }
+        }
+        if (GetComponent<EnemyVisionCollider>().IsPlayerSeen())
+        {
+            hasToWait = true;
+            currentWaitedTime = 0;
+            rb2D.velocity = Vector2.zero;
         }
         
     }
