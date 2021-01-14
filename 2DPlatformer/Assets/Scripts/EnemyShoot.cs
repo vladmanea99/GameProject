@@ -10,9 +10,10 @@ public class EnemyShoot : MonoBehaviour
     [SerializeField] float cooldownTime;
     private float currentCooldownTime;
     private bool isOnCooldown;
+
     void Shoot()
     {
-        Instantiate(ProjectilePrefab, LaunchOffset.position, transform.rotation);
+        Instantiate(ProjectilePrefab, LaunchOffset.position, transform.rotation, this.transform);
         currentCooldownTime = 0;
     }
 
