@@ -54,6 +54,7 @@ public class EnemyVisionCollider : MonoBehaviour
             // Debug.DrawRay(startingRayPosition, direction, Color.red, 1f);
             if (raycastHit2D.collider && raycastHit2D.collider.tag == "Player")
             {
+                GetComponent<EnemyShoot>().startCooldown();
                 isPlayerSeen = true;
                 Enemy.GetComponent<EnemyPatroll>().animator.SetBool("Detected", true);
                 break;

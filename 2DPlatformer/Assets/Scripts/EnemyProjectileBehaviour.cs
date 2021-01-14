@@ -8,27 +8,26 @@ public class EnemyProjectileBehaviour : MonoBehaviour
     public float Speed = 5f;
     public float lifetime = 5.0f;
     public float x;
-    
-    private void Start() {
-        Destroy (gameObject, lifetime);
+
+    private void Start()
+    {
+        Destroy(gameObject, lifetime);
         GameObject Enemy = this.transform.parent.gameObject;
         this.transform.parent = null;
         EnemyPatroll enemyScript = Enemy.GetComponent<EnemyPatroll>();
-        x = enemyScript.getCScale();
         //Vector3 newScale = transform.localScale;
         transform.localScale = new Vector3(transform.localScale.x / 3, transform.localScale.y / 3, transform.localScale.z);
-
     }
 
     // Update is called once per frame
     void Update()
     {
         Debug.Log(x.ToString() + " " + gameObject.GetInstanceID().ToString());
-        if(x > 0)
+        if (x > 0)
         {
             transform.position += transform.right * Time.deltaTime * Speed;
         }
-        if(x < 0)
+        if (x < 0)
         {
             transform.position += -transform.right * Time.deltaTime * Speed;
         }
@@ -37,7 +36,7 @@ public class EnemyProjectileBehaviour : MonoBehaviour
     {
         var player = collision.collider.GetComponent<PlayerBehaviour>();
         //Debug.Log("Intra aici");
-        if(player)
+        if (player)
         {
             player.TakeHit(1);
             Destroy(gameObject);
