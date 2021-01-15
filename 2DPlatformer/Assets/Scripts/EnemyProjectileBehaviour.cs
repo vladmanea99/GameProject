@@ -8,12 +8,14 @@ public class EnemyProjectileBehaviour : MonoBehaviour
     public float Speed = 5f;
     public float lifetime = 5.0f;
     public float x;
-    private void Start() {
-        Destroy (gameObject, lifetime);
+    private void Start()
+    {
+        Destroy(gameObject, lifetime);
         GameObject Enemy = GameObject.Find("Enemy");
         EnemyPatroll enemyScript = Enemy.GetComponent<EnemyPatroll>();
-        //Vector3 newScale = transform.localScale;
         x = enemyScript.getCScale();
+        //Vector3 newScale = transform.localScale;
+
     }
 
     // Update is called once per frame
@@ -30,12 +32,11 @@ public class EnemyProjectileBehaviour : MonoBehaviour
             transform.position += -transform.right * Time.deltaTime * Speed;
         }
     }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         var player = collision.collider.GetComponent<PlayerBehaviour>();
         //Debug.Log("Intra aici");
-        if(player)
+        if (player)
         {
             player.TakeHit(1);
             Destroy(gameObject);
