@@ -9225,7 +9225,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 15eb49098e6d9c1438204e41c0e86acd, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -19399,29 +19399,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 710026798821390218, guid: cacc99608d7694d4bb4fee786197ac94, type: 3}
+      propertyPath: loadScene
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 710026798821390219, guid: cacc99608d7694d4bb4fee786197ac94, type: 3}
       propertyPath: m_Offset.y
-      value: 0.056732178
+      value: -0.13830566
       objectReference: {fileID: 0}
     - target: {fileID: 710026798821390219, guid: cacc99608d7694d4bb4fee786197ac94, type: 3}
       propertyPath: m_Size.y
-      value: 4.2995605
+      value: 3.9094849
       objectReference: {fileID: 0}
     - target: {fileID: 710026798821390219, guid: cacc99608d7694d4bb4fee786197ac94, type: 3}
       propertyPath: m_Offset.x
-      value: -0.21713543
+      value: -0.10013628
       objectReference: {fileID: 0}
     - target: {fileID: 710026798821390219, guid: cacc99608d7694d4bb4fee786197ac94, type: 3}
       propertyPath: m_Size.x
-      value: 1.4160595
+      value: 4.0680037
       objectReference: {fileID: 0}
     - target: {fileID: 710026798821390221, guid: cacc99608d7694d4bb4fee786197ac94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.03
+      value: -16.28
       objectReference: {fileID: 0}
     - target: {fileID: 710026798821390221, guid: cacc99608d7694d4bb4fee786197ac94, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -194.7
+      value: -194.62
       objectReference: {fileID: 0}
     - target: {fileID: 710026798821390221, guid: cacc99608d7694d4bb4fee786197ac94, type: 3}
       propertyPath: m_LocalPosition.z
