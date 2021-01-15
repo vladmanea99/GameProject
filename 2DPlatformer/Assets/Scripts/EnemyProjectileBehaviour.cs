@@ -17,6 +17,7 @@ public class EnemyProjectileBehaviour : MonoBehaviour
         EnemyPatroll enemyScript = Enemy.GetComponent<EnemyPatroll>();
         //Vector3 newScale = transform.localScale;
         transform.localScale = new Vector3(transform.localScale.x / 3, transform.localScale.y / 3, transform.localScale.z);
+        x = enemyScript.getCScale();
     }
 
     // Update is called once per frame
