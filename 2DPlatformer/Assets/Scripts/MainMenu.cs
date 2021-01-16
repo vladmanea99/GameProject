@@ -15,11 +15,19 @@ public class MainMenu : MonoBehaviour
     }
     public void LoadLevel2()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        int level = PlayerPrefs.GetInt("level");
+        if (level >= 2)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        }
     }
     public void LoadLevel3()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+        int level = PlayerPrefs.GetInt("level");
+        if (level >= 3)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+        }
     }
     public void QuitGame()
     {
