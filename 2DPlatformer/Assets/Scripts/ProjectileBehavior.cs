@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿
+using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +11,7 @@ public class ProjectileBehavior : MonoBehaviour
     //public float delay = 2.0; //Delay of 5 seconds.
     public float lifetime = 5.0f;
     public int x;
+    private float critValue;
     private void Start() 
     {
         Destroy (gameObject, lifetime);
@@ -34,8 +37,15 @@ public class ProjectileBehavior : MonoBehaviour
         var enemy = collision.collider.GetComponent<EnemyBehaviour>();
         if(enemy)
         {
-
-            enemy.TakeHit(1);
+            critValue = Random.Range(0.0f, 1.0f);
+            if (critValue >= 0.8f)
+            {
+                enemy.TakeHit(2);
+            }    
+            else
+            {
+                enemy.TakeHit(1);
+            }    
             Destroy(gameObject);
         }
        Destroy(gameObject);

@@ -10,7 +10,6 @@ public class PortalBehaviour : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) {
         var player = collision.collider.GetComponent<PlayerBehaviour>();
         if(player){
-
             SceneManager.LoadScene(loadScene);
         }
     }

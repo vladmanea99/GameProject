@@ -20,10 +20,12 @@ public class PauseMenu : MonoBehaviour
             if(GameIsPaused)
             {
                 Resume();
+                Debug.Log("hai");
             }
             else
             {
                 Pause();
+                Debug.Log("dai");
             }
         }
     }
@@ -42,7 +44,7 @@ public class PauseMenu : MonoBehaviour
     
     public void LoadMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(0);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
