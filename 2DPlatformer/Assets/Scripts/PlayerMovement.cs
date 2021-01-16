@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-  public static bool IsInputEnabled = true;
+    public static bool IsInputEnabled = true;
     [SerializeField] GameObject camera;
-  public Transform Player;
-  public Animator animator;
-  public float crouchValue;
-  private Vector2 crouchScale;
-  public float speed = 5f;
-  public float jumpSpeed = 8f;
-  private float movement = 0f;
-  private Rigidbody2D rigidBody;
-  public bool isTouchingGround;// checker pentru daca atinge pamantul
-  public int cScale = 1; //valoare care tine minte in ce directie se uita playerul
-  public ProjectileBehavior ProjectilePrefab;
-  public Transform LaunchOffset;
-  public int LastSwap = 1;
-  private Vector3 lastPosition;
-  [SerializeField] float LevelDistance = 39.08f;
+    public Transform Player;
+    public Animator animator;
+    public float crouchValue;
+    private Vector2 crouchScale;
+    public float speed = 5f;
+    public float jumpSpeed = 8f;
+    private float movement = 0f;
+    private Rigidbody2D rigidBody;
+    public bool isTouchingGround;// checker pentru daca atinge pamantul
+    public int cScale = 1; //valoare care tine minte in ce directie se uita playerul
+    public ProjectileBehavior ProjectilePrefab;
+    public Transform LaunchOffset;
+    public int LastSwap = 1;
+    private Vector3 lastPosition;
+    public GameObject TP;
+    [SerializeField] GameObject shootsound;
+    [SerializeField] float LevelDistance = 39.08f;
+
+  void DisableSprite()
+  {
+      TP.GetComponent<SpriteRenderer>().enabled = false;
+  }
   void Start () {
     rigidBody = GetComponent<Rigidbody2D> ();
     Player = GameObject.FindWithTag("Player").transform;
     crouchScale = new Vector3(0f, crouchValue, 0f);
     }
-  private void Movement(){
+    private void Movement(){
     movement = Input.GetAxis ("Horizontal");
     Vector3 characterScale = transform.localScale;
     if (movement > 0f) { // daca se misca la dreapta(a.k.a. inspre x pozitiv)
@@ -67,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     }
     if(Input.GetKeyDown (KeyCode.Space) && IsInputEnabled)  // pentru tras, space, restul in ProjectileBehaviour
     {
+      shootsound.GetComponent<AudioSource>().Play();
       if (cScale == 1)
       {
        Instantiate(ProjectilePrefab, LaunchOffset.position, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
@@ -77,15 +85,19 @@ public class PlayerMovement : MonoBehaviour
       }
     }
     if (Input.GetKeyDown("1")){
+        TP.GetComponent<SpriteRenderer>().enabled = true;
         transform.position = new Vector3(transform.position.x + LevelDistance*(1-LastSwap), transform.position.y, transform.position.z);
         camera.GetComponent<CameraPostProcessingColor>().moveToDimension("1", lastPosition);
             LastSwap = 1;
-    }
+        Invoke("DisableSprite", 1.0f);
+        }
     if (Input.GetKeyDown("2"))
     {
+        TP.GetComponent<SpriteRenderer>().enabled = true;
         transform.position = new Vector3(transform.position.x + LevelDistance*(2-LastSwap), transform.position.y, transform.position.z);
         camera.GetComponent<CameraPostProcessingColor>().moveToDimension("2", lastPosition);
         LastSwap = 2;
+        Invoke("DisableSprite", 1.0f);
     }
     if (Input.GetKeyDown("3"))
     {
