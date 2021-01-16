@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Level
   - Platform
+  - Deathzone
   layers:
   - Default
   - TransparentFX
